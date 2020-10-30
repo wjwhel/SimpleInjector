@@ -33,10 +33,8 @@ DWORD getProcessId(const wchar_t* process)
 
 int main()
 {
-	const wchar_t* process = L"csgo.exe";		// Process to inject into
-	const wchar_t* dllPath = L"InHop.dll";		// Dll to inject
-
-	// WIP
+	const wchar_t* process = L"csgo.exe";																// Process to inject into
+	const wchar_t* dllPath = L"C:\\Users\\warre\\source\\repos\\SimpleInjector\\Debug\\InHop.dll";		// Dll to inject
 
 	DWORD processId = getProcessId(process);
 
@@ -46,12 +44,7 @@ int main()
 
 	WriteProcessMemory(hProcess, baseAddr, dllPath, (wcslen(dllPath) + 1) * sizeof(wchar_t), nullptr);
 
-	HANDLE hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)LoadLibraryW, baseAddr, 0, NULL);
-
-	// WIP
-
-
-
+	HANDLE hThread = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)LoadLibraryW, baseAddr, 0, NULL);
 
 	return 0;
 }
